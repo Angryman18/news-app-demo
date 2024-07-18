@@ -2,6 +2,31 @@ import { Box, Container, Typography } from "@mui/material";
 import React from "react";
 import { styled } from "@mui/material/styles";
 
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Container>
+      <StyledBar>
+        <Typography fontFamily='monospace' fontWeight={700} variant='h3' marginTop={1}>
+          News Station
+        </Typography>
+        <Typography variant='body2' marginTop={1}>
+          Today : {new Date().toLocaleString()}
+        </Typography>
+      </StyledBar>
+      <Box
+        sx={{
+          marginTop: 4,
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        {children}
+      </Box>
+    </Container>
+  );
+};
+
 const StyledBar = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
@@ -19,29 +44,5 @@ const StyledBar = styled(Box)(({ theme }) => ({
     justifyContent: "center",
   },
 }));
-
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <Container>
-      <StyledBar>
-        <Typography fontFamily='monospace' fontWeight={700} variant='h3' marginTop={1}>
-          News Station
-        </Typography>
-        <Typography variant='body2' marginTop={1}>
-          Today : {new Date().toLocaleString()}
-        </Typography>
-      </StyledBar>
-      <Box
-        sx={{
-          marginTop: 4,
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        {children}
-      </Box>
-    </Container>
-  );
-};
 
 export default Layout;

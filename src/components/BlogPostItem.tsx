@@ -1,59 +1,19 @@
+import { NewsArticle } from "@/types/types";
 import { Box, Card, Typography } from "@mui/material";
-import { styled, Theme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { useState } from "react";
 
-const StyledCard = styled(Card)(({ theme }) => ({
-  color: "green",
-  margin: 0,
-  padding: 0,
-  width: 500,
-  fontFamily: "sans-serif",
-  [theme.breakpoints.down("sm")]: {
-    width: "100%",
-  },
-  [theme.breakpoints.down("lg")]: {
-    width: 400,
-  },
-}));
-
-const StyledHighlight = styled(Box)<{ theme?: Theme; purpose?: "title" | "date" }>(
-  ({ purpose }) => {
-    return purpose === "title"
-      ? {
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          margin: 2,
-          fontWeight: 700,
-          fontSize: 20,
-          color: "white",
-          textShadow: "1px 1px 2px black, 0 0 1em black, 0 0 0.2em black",
-          lineHeight: "1.2",
-        }
-      : {};
-  }
-);
-
-const StyledImageContainer = styled(Box)(({ theme }) => ({
-  height: 300,
-  position: "relative",
-  cursor: "pointer",
-  overflow: "hidden",
-  [theme.breakpoints.down("sm")]: {
-    height: 200,
-  },
-}));
-
-const BlogPostItem = ({ item }: { item: any }) => {
+const BlogPostItem = ({ item }: { item: NewsArticle }) => {
   const [hovering, setIsHovering] = useState(false);
   return (
     <StyledCard
       onMouseEnter={setIsHovering.bind(null, !hovering)}
       onMouseLeave={setIsHovering.bind(null, !hovering)}
+      data-testid='news-card'
     >
       <StyledImageContainer>
         <img
-          src={item.urlToImage}
+          src={item.urlToImage!}
           width='100%'
           height='400px'
           style={{
@@ -73,7 +33,21 @@ const BlogPostItem = ({ item }: { item: any }) => {
             opacity: "0.2",
           }}
         ></Box>
-        <StyledHighlight purpose='title'>{item.title}</StyledHighlight>
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            margin: 2,
+            fontWeight: 700,
+            fontSize: 20,
+            color: "white",
+            textShadow: "1px 1px 2px black, 0 0 1em black, 0 0 0.2em black",
+            lineHeight: "1.2",
+          }}
+        >
+          {item.title}
+        </Box>
         <Box
           style={{
             display: "inline",
@@ -87,7 +61,7 @@ const BlogPostItem = ({ item }: { item: any }) => {
             margin: "0 10px",
           }}
         >
-          {new Date(item?.publishedAt).toLocaleString()}
+          {new Date(item!.publishedAt!).toLocaleString()}
         </Box>
         <Box
           style={{
@@ -98,7 +72,7 @@ const BlogPostItem = ({ item }: { item: any }) => {
             color: "white",
             position: "absolute",
             padding: "4px 8px",
-            right: "0px",
+            right: 0,
             top: "10px",
           }}
         >
@@ -111,5 +85,29 @@ const BlogPostItem = ({ item }: { item: any }) => {
     </StyledCard>
   );
 };
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  color: "green",
+  margin: 0,
+  padding: 0,
+  width: 500,
+  fontFamily: "sans-serif",
+  [theme.breakpoints.down("lg")]: {
+    width: 400,
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
+}));
+
+const StyledImageContainer = styled(Box)(({ theme }) => ({
+  height: 300,
+  position: "relative",
+  cursor: "pointer",
+  overflow: "hidden",
+  [theme.breakpoints.down("sm")]: {
+    height: 200,
+  },
+}));
 
 export default BlogPostItem;

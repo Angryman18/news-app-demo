@@ -15,7 +15,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    // "esModuleInterop": true,
+    "esModuleInterop": true,
     "noEmit": true,
     "jsx": "react-jsx",
 
