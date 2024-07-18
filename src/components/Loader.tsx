@@ -1,9 +1,9 @@
-import "@/styles/loader.css";
+import style from "@/styles/loader.module.css";
 
 const Loader = ({ loading = true }: { loading?: boolean }) => {
   return loading ? (
-    <div className='center' data-testid="loading">
-      <span className='loader'></span>
+    <div className={(style as any).center} data-testid='loading'>
+      <span className={(style as any).loader}></span>
     </div>
   ) : null;
 };
