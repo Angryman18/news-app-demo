@@ -28,6 +28,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", "global.d.ts", "__test__", "__mock__"]
+  "include": ["src", "global.d.ts", "__test__"]
   // "exclude": ["__test__/**/*"]
 }
