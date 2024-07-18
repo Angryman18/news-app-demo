@@ -16,5 +16,5 @@ jobs:
         with:
           node-version: "20.11.0"
       - run: npm install
-      - run: npm run test
+      - run: npm run test --no-cache
   
