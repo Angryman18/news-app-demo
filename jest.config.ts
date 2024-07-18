@@ -12,7 +12,8 @@ export default async (): Promise<Config> => {
     moduleDirectories: ["<rootDir>", "node_modules"],
     verbose: true,
     moduleNameMapper: {
-      "\\.(css|less|sass|scss)$": "<rootDir>/__test__/__mock__/CssStub.ts",
+      "^@/styles/(.*)$": "<rootDir>/__test__/__mock__/CssStub.ts",
+      // "\\.(css|less|sass|scss)$": "<rootDir>/__test__/__mock__/CssStub.ts",
       "^@/(.*)$": "<rootDir>/src/$1",
     },
     transformIgnorePatterns: ["\\.css?$"],
