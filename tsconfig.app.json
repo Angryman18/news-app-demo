@@ -25,9 +25,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["src/*"]
     }
   },
-  "include": ["src", "global.d.ts", "__test__"]
+  "include": ["src", "global.d.ts", "__test__", "__mock__"]
   // "exclude": ["__test__/**/*"]
 }
