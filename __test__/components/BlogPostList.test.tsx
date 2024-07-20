@@ -2,11 +2,12 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import BlogPostList from "@/components/BlogPostList";
 import * as methods from "@/hooks/useFetchPost";
 import { PostResponse } from "@/types/types";
+import { BrowserRouter } from "react-router-dom";
 
 jest.mock("@/hooks/useFetchPost", () => ({
   __esModule: true,
   default: jest.fn(() => ({
-    fetchAllPost: jest.fn().mockResolvedValue({}),
+    fetchNewsPost: jest.fn().mockResolvedValue({}),
     posts: [],
     totalResult: 10,
     loading: false,
@@ -28,7 +29,7 @@ describe("BlogPostList", () => {
 
   test("is the loading state is working properly", () => {
     const spyData = jest.spyOn(methods, "default").mockImplementation(() => ({
-      fetchAllPost: spyFetch.mockResolvedValue({}),
+      fetchNewsPost: spyFetch.mockResolvedValue({}),
       posts: [],
       totalResult: 10,
       loading: true,
@@ -41,7 +42,7 @@ describe("BlogPostList", () => {
 
   test("Check if the prev and next button are displayed and workng properly", () => {
     const spyData = jest.spyOn(methods, "default").mockImplementation(() => ({
-      fetchAllPost: spyFetch.mockResolvedValue({}),
+      fetchNewsPost: spyFetch.mockResolvedValue({}),
       posts: [],
       totalResult: 20,
       loading: false,
@@ -50,9 +51,9 @@ describe("BlogPostList", () => {
     expect(spyData).toHaveBeenCalled();
     expect(screen.queryByTestId("loading")).not.toBeInTheDocument();
     fireEvent.click(screen.getByTestId("next-page-btn"));
-    expect(spyFetch).toHaveBeenCalledWith(2);
+    expect(spyFetch).toHaveBeenCalledWith({ page: 2 });
     fireEvent.click(screen.getByTestId("prev-page-btn"));
-    expect(spyFetch).toHaveBeenCalledWith(1);
+    expect(spyFetch).toHaveBeenCalledWith({ page: 1 });
   });
 
   test("Check if API data is being rendered properly", () => {
@@ -73,12 +74,16 @@ describe("BlogPostList", () => {
       status: "ok",
     };
     const spyData = jest.spyOn(methods, "default").mockImplementation(() => ({
-      fetchAllPost: spyFetch.mockResolvedValue({}),
+      fetchNewsPost: spyFetch.mockResolvedValue({}),
       posts: dummyData.articles,
       totalResult: dummyData.totalResults,
       loading: false,
     }));
-    render(<BlogPostList />);
+    render(
+      <BrowserRouter>
+        <BlogPostList />
+      </BrowserRouter>
+    );
     expect(spyData).toHaveBeenCalled();
     expect(spyFetch).toHaveBeenCalled();
     const getAllCards = screen.queryAllByTestId("news-card");
