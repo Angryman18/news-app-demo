@@ -2,14 +2,18 @@ import { NewsArticle } from "@/types/types";
 import { Box, Card, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BlogPostItem = ({ item }: { item: NewsArticle }) => {
   const [hovering, setIsHovering] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <StyledCard
       onMouseEnter={setIsHovering.bind(null, !hovering)}
       onMouseLeave={setIsHovering.bind(null, !hovering)}
       data-testid='news-card'
+      onClick={() => navigate(`/post/${item.title!}`)}
     >
       <StyledImageContainer>
         <img

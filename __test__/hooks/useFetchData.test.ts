@@ -6,9 +6,9 @@ describe("useFetchData", () => {
     const spyHook = jest.spyOn(fetchHook, "default");
     const {
       result: { current },
-    } = renderHook(useFetchPost);
-    expect(spyHook).toHaveBeenCalled();
-    expect(current).toHaveProperty("fetchAllPost");
+    } = renderHook(() => useFetchPost(true));
+    expect(spyHook).toHaveBeenCalledWith(true);
+    expect(current).toHaveProperty("fetchNewsPost");
     expect(current).toHaveProperty("posts");
     expect(current).toHaveProperty("totalResult");
     expect(current).toHaveProperty("loading");

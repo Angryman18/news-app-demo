@@ -1,5 +1,5 @@
 import useFetchPost from "@/hooks/useFetchPost";
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import BlogPostItem from "./BlogPostItem";
 import Loader from "./Loader";
@@ -7,11 +7,11 @@ import { NewsArticle } from "@/types/types";
 
 export default function BlogPostList() {
   const [page, setPage] = useState<number>(1);
-  const { fetchAllPost, posts, loading, totalResult } = useFetchPost();
+  const { fetchNewsPost, posts, loading, totalResult } = useFetchPost(true);
 
   useEffect(() => {
-    fetchAllPost(page).catch(console.log);
-  }, [fetchAllPost, page]);
+    fetchNewsPost({ page }).catch(console.log);
+  }, [fetchNewsPost, page]);
 
   if (loading) return <Loader />;
   return (
@@ -22,7 +22,17 @@ export default function BlogPostList() {
         })}
         {!loading && !posts?.length ? <Box>No Post Available</Box> : null}
       </Stack>
-      <Box display='flex' marginY={5} marginX={8} justifyContent='space-between'>
+      <Box marginLeft='auto' marginRight={{ md: 8, sm: 2, xs: 0 }} marginTop={5}>
+        <Typography>
+          Page: {page}/{Math.ceil(totalResult! / 10)}
+        </Typography>
+      </Box>
+      <Box
+        display='flex'
+        marginY={5}
+        marginX={{ md: 8, sm: 2, xs: 0 }}
+        justifyContent='space-between'
+      >
         {page > 1 && (
           <Button
             variant='contained'
