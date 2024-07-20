@@ -22,11 +22,13 @@ export default function BlogPostList() {
         })}
         {!loading && !posts?.length ? <Box>No Post Available</Box> : null}
       </Stack>
-      <Box marginLeft='auto' marginRight={{ md: 8, sm: 2, xs: 0 }} marginTop={5}>
-        <Typography>
-          Page: {page}/{Math.ceil(totalResult! / 10)}
-        </Typography>
-      </Box>
+      {totalResult > 0 && (
+        <Box marginLeft='auto' marginRight={{ md: 8, sm: 2, xs: 0 }} marginTop={5}>
+          <Typography>
+            Page: {page}/{Math.ceil(totalResult! / 10)}
+          </Typography>
+        </Box>
+      )}
       <Box
         display='flex'
         marginY={5}
